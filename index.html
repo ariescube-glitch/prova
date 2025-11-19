@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>365 Giorni Potenzianti</title>
-  <meta name="description" content="Una citazione potenziante ogni giorno, per 365 giorni.">
+  <title>Wakeify 365</title>
+  <meta name="description" content="Una citazione potenziante al giorno per 365 giorni, in stile Wakeify.">
   <style>
     :root {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -100,6 +100,7 @@
 
     .quote-note span {
       opacity: 0.7;
+      font-weight: 500;
     }
 
     footer {
@@ -119,8 +120,8 @@
 <body>
   <div class="app">
     <header>
-      <h1>365 Citazioni per la tua crescita personale</h1>
-      <p>Una frase al giorno per ricordarti chi puoi diventare.</p>
+      <h1>Wakeify 365</h1>
+      <p>Una frase al giorno per svegliare il tuo potenziale.</p>
     </header>
 
     <p id="date-label" class="date"></p>
@@ -141,1021 +142,66 @@
 
     <footer>
       <span>Creato con <span aria-hidden="true">♥</span> per accompagnarti ogni giorno.</span><br>
-      <!-- Puoi personalizzare: il tuo nome, “Wakeify”, ecc. -->
       <strong>by Wakeify</strong>
     </footer>
   </div>
 
   <script>
     // ==============================
-    // 1. QUI METTI LE TUE CITAZIONI
+    // 1. CITAZIONI (ARRAY DI OGGETTI)
     // ==============================
-    // Ogni oggetto rappresenta 1 giorno.
-    // Quando avrai 365 citazioni, ogni giorno dell'anno avrà la sua.
-    // Per ora ti metto alcuni esempi (puoi cambiarli tutti):
 
     const quotes = [
-   "{
-  text: ""Ogni passo verso il cambiamento in pace e famiglia nasce da una scelta minuscola ma coerente."",
-  author: ""Trump"",
-  note: ""Oggi scegli una sola azione concreta legata a \""pace e famiglia\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in inclusione nasce da una scelta minuscola ma coerente."",
-  author: ""ciao"",
-  note: ""Oggi scegli una sola azione concreta legata a \""inclusione\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in educazione nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""educazione\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in memoria nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""memoria\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in ambiente nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""ambiente\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in salute nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""salute\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in diritti nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""diritti\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in scienza nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""scienza\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in comunicazione nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""comunicazione\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in giustizia nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""giustizia\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in lingue nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""lingue\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in diritti nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""diritti\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in animali nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""animali\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in paritÃ  nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""paritÃ \"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in benessere nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""benessere\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in diritti nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""diritti\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in cultura nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""cultura\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in ambiente nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""ambiente\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in scienza nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""scienza\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in salute nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""salute\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in salute nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""salute\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in pace nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""pace\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in sport nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""sport\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in salute nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""salute\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in spazio nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""spazio\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in ambiente nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""ambiente\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in cultura nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""cultura\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in salute nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""salute\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in innovazione nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""innovazione\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in lavoro nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""lavoro\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in musica nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""musica\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in lavoro nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""lavoro\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in diritti nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""diritti\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in umanitario nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""umanitario\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in salute nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""salute\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in famiglia nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""famiglia\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in tecnologia nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""tecnologia\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in cultura nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""cultura\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in ambiente nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""ambiente\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in salute nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""salute\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in famiglia nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""famiglia\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in ambiente nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""ambiente\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in ambiente nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""ambiente\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in diritti nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""diritti\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in salute nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""salute\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in diritti nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""diritti\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in diritti nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""diritti\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in benessere nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""benessere\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in salute nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""salute\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in scienza nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""scienza\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in cultura nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""cultura\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in societÃ  nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""societÃ \"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in giovani nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""giovani\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in diritti nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""diritti\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in salute nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""salute\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in sociale nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""sociale\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in diritti nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""diritti\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in giovani nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""giovani\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in umanitario nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""umanitario\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in pace nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""pace\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in pace nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""pace\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in solidarietÃ  nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""solidarietÃ \"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in educazione nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""educazione\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in salute nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""salute\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in politica nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""politica\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in ambiente nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""ambiente\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in pace nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""pace\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in turismo nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""turismo\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in societÃ  nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""societÃ \"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in pace nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""pace\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in educazione nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""educazione\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in salute nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""salute\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in diritti nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""diritti\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in ambiente nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""ambiente\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in salute nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""salute\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in alimentazione nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""alimentazione\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in diritti nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""diritti\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in onu nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""onu\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in cittÃ  nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""cittÃ \"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in diritti nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""diritti\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in ambiente nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""ambiente\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in salute nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""salute\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in diritti nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""diritti\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in acqua nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""acqua\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in infanzia nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""infanzia\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in diritti nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""diritti\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in diritti nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""diritti\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in salute nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""salute\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in diritti nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""diritti\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in inclusione nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""inclusione\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in ambiente nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""ambiente\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in legalitÃ  nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""legalitÃ \"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in diritti nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""diritti\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-"{
-  text: ""Ogni passo verso il cambiamento in varie nasce da una scelta minuscola ma coerente."",
-  author: ""Wakeify"",
-  note: ""Oggi scegli una sola azione concreta legata a \""varie\"" e falla entro stasera, anche se Ã¨ minuscola.""
-},"
-
+      {
+        text: "Ogni passo verso il cambiamento in pace e famiglia nasce da una scelta minuscola ma coerente.",
+        author: "Wakeify",
+        note: "Oggi scegli una sola azione concreta legata a \"pace e famiglia\" e falla entro stasera, anche se è minuscola."
+      },
+      {
+        text: "Ogni passo verso il cambiamento in inclusione nasce da una scelta minuscola ma coerente.",
+        author: "Wakeify",
+        note: "Pensa a qualcuno che tende a restare ai margini: trova un modo semplice per includerlo, oggi."
+      },
+      {
+        text: "Ogni passo verso il cambiamento in educazione nasce da una scelta minuscola ma coerente.",
+        author: "Wakeify",
+        note: "Decidi cosa vuoi imparare nei prossimi 7 giorni e blocca in agenda un micro-spazio per iniziare."
+      },
+      {
+        text: "Ogni passo verso il cambiamento in ambiente nasce da una scelta minuscola ma coerente.",
+        author: "Wakeify",
+        note: "Scegli un gesto concreto per rispettare di più l'ambiente oggi: meno spreco, più cura."
+      },
+      {
+        text: "Ogni passo verso il cambiamento in salute nasce da una scelta minuscola ma coerente.",
+        author: "Wakeify",
+        note: "Prenditi dieci minuti per muovere il corpo, respirare meglio o riposare davvero."
+      },
+      {
+        text: "Ogni passo verso il cambiamento in diritti nasce da una scelta minuscola ma coerente.",
+        author: "Wakeify",
+        note: "Nota un'ingiustizia che vedi intorno a te e reagisci almeno con una scelta consapevole, fosse anche solo nominare il problema."
+      },
+      {
+        text: "Ogni passo verso il cambiamento in cultura nasce da una scelta minuscola ma coerente.",
+        author: "Wakeify",
+        note: "Oggi nutri la mente: leggi un paragrafo, ascolta un contenuto, guarda qualcosa che ti allarga lo sguardo."
+      },
+      {
+        text: "Ogni passo verso il cambiamento nei giovani nasce da una scelta minuscola ma coerente.",
+        author: "Wakeify",
+        note: "Pensa a un giovane che conosci: manda un messaggio, una parola, un feedback che lo faccia sentire visto."
+      },
+      {
+        text: "Ogni passo verso il cambiamento in benessere nasce da una scelta minuscola ma coerente.",
+        author: "Wakeify",
+        note: "Chiediti: cosa mi ricarica davvero? Fai oggi almeno un micro-gesto che vada in quella direzione."
+      },
+      {
+        text: "Ogni passo verso il cambiamento nella tua vita nasce da una scelta minuscola ma coerente.",
+        author: "Wakeify",
+        note: "Non devi cambiare tutto oggi: scegli una sola cosa su cui allineare pensiero, parola e azione."
+      }
     ];
 
     // ===================================================
@@ -1182,7 +228,7 @@
     function showQuoteForToday() {
       const today = new Date();
 
-      // Impostiamo la data in italiano esteso: lunedì 17 novembre 2025
+      // Data in italiano esteso: lunedì 17 novembre 2025
       const dateLabel = today.toLocaleDateString("it-IT", {
         weekday: "long",
         year: "numeric",
@@ -1193,16 +239,27 @@
       const dayOfYear = getDayOfYear(today); // 1–366
 
       // Se hai 365 citazioni, l'indice sarà 0–364.
-      // Usare il modulo permette all'app di funzionare anche se per ora hai meno citazioni.
+      // Con il modulo gira anche se le citazioni sono meno.
       const index = (dayOfYear - 1) % quotes.length;
       const quote = quotes[index];
 
       // Inserimento nei nodi HTML
-      document.getElementById("date-label").textContent = dateLabel;
-      document.getElementById("quote-text").textContent = quote.text;
-      document.getElementById("quote-author").textContent = "— " + quote.author;
-      document.getElementById("quote-note").innerHTML =
-        "<span>Spunto del giorno:</span> " + quote.note;
+      const dateEl = document.getElementById("date-label");
+      const textEl = document.getElementById("quote-text");
+      const authorEl = document.getElementById("quote-author");
+      const noteEl = document.getElementById("quote-note");
+
+      if (!quote) {
+        textEl.textContent = "Nessuna citazione disponibile per oggi.";
+        authorEl.textContent = "";
+        noteEl.textContent = "";
+        return;
+      }
+
+      dateEl.textContent = dateLabel;
+      textEl.textContent = quote.text;
+      authorEl.textContent = "— " + quote.author;
+      noteEl.innerHTML = "<span>Spunto del giorno:</span> " + quote.note;
     }
 
     document.addEventListener("DOMContentLoaded", showQuoteForToday);
