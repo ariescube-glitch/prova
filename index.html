@@ -18,8 +18,8 @@
 
     body {
       min-height: 100vh;
-      background: #020617; /* Blu notte */
-      color: #e5e7eb;      /* grigio chiaro */
+      background: #0f172a; /* sfondo blu notte */
+      color: #e5e7eb;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -128,17 +128,11 @@
 
     <section class="quote-card">
       <div class="quote-icon">“</div>
-      <p id="quote-text" class="quote-text">
-        <!-- Qui lo script inserirà il testo della citazione -->
-      </p>
-      <p id="quote-author" class="quote-author">
-        <!-- Qui lo script inserirà l'autore -->
-      </p>
+      <p id="quote-text" class="quote-text"></p>
+      <p id="quote-author" class="quote-author"></p>
     </section>
 
-    <p id="quote-note" class="quote-note">
-      <!-- Qui lo script inserirà il micro-spunto di riflessione -->
-    </p>
+    <p id="quote-note" class="quote-note"></p>
 
     <footer>
       <span>Creato con <span aria-hidden="true">♥</span> per accompagnarti ogni giorno.</span><br>
@@ -151,42 +145,61 @@
     // 1. CITAZIONI (ARRAY DI OGGETTI)
     // ==============================
 
-   <script type="module">
-  import quotes from './quotes.js';
-
-  function getDayOfYear(date) {
-    const start = new Date(date.getFullYear(), 0, 0);
-    const diff = date - start;
-    const oneDay = 1000 * 60 * 60 * 24;
-    return Math.floor(diff / oneDay);
-  }
-
-  function showQuoteForToday() {
-    const today = new Date();
-
-    const dateLabel = today.toLocaleDateString("it-IT", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    });
-
-    const dayOfYear = getDayOfYear(today);
-    const index = (dayOfYear - 1) % quotes.length;
-    const quote = quotes[index];
-
-    document.getElementById("date-label").textContent = dateLabel;
-    document.getElementById("quote-text").textContent = quote.text;
-    document.getElementById("quote-author").textContent = "— " + quote.author;
-    document.getElementById("quote-note").innerHTML =
-      "<span>Spunto del giorno:</span> " + quote.note;
-  }
-
-  document.addEventListener("DOMContentLoaded", showQuoteForToday);
-</script>
+    const quotes = [
+      {
+        text: "Il tempo è ciò che diamo in cambio a ciò che scegliamo di diventare.",
+        author: "Carlos Castaneda — Wakeify",
+        note: "Dedica oggi 10 minuti a qualcosa che ti avvicina alla persona che vuoi diventare."
+      },
+      {
+        text: "Diventa così bravo in ciò che fai… che non possano ignorarti.",
+        author: "Steve Martin — Wakeify",
+        note: "Allena oggi una micro-abilità del tuo talento per 10 minuti, senza distrazioni."
+      },
+      {
+        text: "Le persone forti non sono quelle che non cadono mai, ma quelle che si rialzano ogni volta che cadono.",
+        author: "Confucio — Wakeify",
+        note: "Riprendi oggi una cosa che avevi mollato dopo una caduta, anche solo per pochi minuti."
+      },
+      {
+        text: "Sii paziente con te stesso. La crescita interiore è un lavoro silenzioso e profondo.",
+        author: "Sandra Carey — Wakeify",
+        note: "Concediti oggi 2 minuti di pausa consapevole: respira, ascoltati, senza giudizio."
+      },
+      {
+        text: "La vita si restringe o si espande in proporzione al coraggio di ciascuno.",
+        author: "Anaïs Nin — Wakeify",
+        note: "Scegli un’azione che rimandi per paura e falla in versione ‘mini’, oggi."
+      },
+      {
+        text: "Non è necessario vedere l’intera scala. Inizia semplicemente a salire il primo gradino.",
+        author: "Martin Luther King Jr. — Wakeify",
+        note: "Definisci il primo micro-passaggio del tuo obiettivo e fallo entro stasera."
+      },
+      {
+        text: "La disciplina è scegliere tra ciò che vuoi ora e ciò che vuoi di più.",
+        author: "Abraham Lincoln — Wakeify",
+        note: "Nota una tentazione ‘subito e facile’ e scegline consapevolmente una che serva al tuo lungo termine."
+      },
+      {
+        text: "Non aspettare. Il tempo non sarà mai giusto.",
+        author: "Napoleon Hill — Wakeify",
+        note: "Inizia oggi qualcosa che continui a rimandare ‘al momento giusto’, anche per 5 minuti."
+      },
+      {
+        text: "La felicità non è qualcosa di pronto. Viene dalle tue azioni.",
+        author: "Tenzin Gyatso, 14º Dalai Lama — Wakeify",
+        note: "Fai oggi un gesto intenzionale che sai che ti fa stare bene, invece di aspettare l’umore giusto."
+      },
+      {
+        text: "L’istruzione è l’arma più potente che puoi usare per cambiare il mondo.",
+        author: "Nelson Mandela — Wakeify",
+        note: "Scegli un tema che ti sta a cuore e dedica 10 minuti a informarti meglio."
+      }
+    ];
 
     // ===================================================
-    // 2. CALCOLA IL GIORNO DELL'ANNO E SCEGLI LA CITAZIONE
+    // 2. CALCOLA IL GIORNO DELL’ANNO E SCEGLI LA CITAZIONE
     // ===================================================
 
     /**
@@ -203,13 +216,12 @@
 
     /**
      * Mostra la citazione corrispondente alla data di oggi.
-     * Per ora, se ci sono meno di 365 citazioni, il sistema 'gira' nell'array con il modulo.
-     * Quando avrai 365 voci, ogni giorno sarà unico.
+     * Per ora, se ci sono meno di 365 citazioni, il sistema "gira" nell'array con il modulo.
      */
     function showQuoteForToday() {
       const today = new Date();
 
-      // Data in italiano esteso: lunedì 17 novembre 2025
+      // Data in italiano esteso, es: lunedì 17 novembre 2025
       const dateLabel = today.toLocaleDateString("it-IT", {
         weekday: "long",
         year: "numeric",
@@ -218,13 +230,9 @@
       });
 
       const dayOfYear = getDayOfYear(today); // 1–366
-
-      // Se hai 365 citazioni, l'indice sarà 0–364.
-      // Con il modulo gira anche se le citazioni sono meno.
       const index = (dayOfYear - 1) % quotes.length;
       const quote = quotes[index];
 
-      // Inserimento nei nodi HTML
       const dateEl = document.getElementById("date-label");
       const textEl = document.getElementById("quote-text");
       const authorEl = document.getElementById("quote-author");
@@ -247,6 +255,7 @@
   </script>
 </body>
 </html>
+
 
 
 
