@@ -151,58 +151,39 @@
     // 1. CITAZIONI (ARRAY DI OGGETTI)
     // ==============================
 
-    const quotes = [
-      {
-        text: "Ogni passo verso il cambiamento in pace e famiglia nasce da una scelta minuscola ma coerente.",
-        author: "Wakeify",
-        note: "Oggi scegli una sola azione concreta legata a \"pace e famiglia\" e falla entro stasera, anche se è minuscola."
-      },
-      {
-        text: "Ogni passo verso il cambiamento in inclusione nasce da una scelta minuscola ma coerente.",
-        author: "Wakeify",
-        note: "Pensa a qualcuno che tende a restare ai margini: trova un modo semplice per includerlo, oggi."
-      },
-      {
-        text: "Ogni passo verso il cambiamento in educazione nasce da una scelta minuscola ma coerente.",
-        author: "Wakeify",
-        note: "Decidi cosa vuoi imparare nei prossimi 7 giorni e blocca in agenda un micro-spazio per iniziare."
-      },
-      {
-        text: "Ogni passo verso il cambiamento nasce da una scelta minuscola ma coerente.",
-        author: "Wakeify",
-        note: "Scegli un gesto concreto per rispettarti di più oggi: meno spreco, più cura."
-      },
-      {
-        text: "Una nave è al sicuro nel porto, ma non è per questo che le navi sono state costruite.",
-        author: "John A. Shedd — Wakeify",
-        note: "La crescita nasce sempre nel movimento, nel mare aperto, nell’esplorazione. Il mondo non è pericoloso: è vivo. E tu sei chiamato a navigarlo, non a guardarlo dalla riva."
-      },
-      {
-        text: "The best type of risks to take are ones where (1) the worst outcome is manageable and (2) the best outcome is life-changing.",
-        author: "James Clear — Wakeify",
-        note: "Individua un rischio che puoi gestire se va male e che può stravolgere tutto se va bene: prendilo oggi. Punto."
-      },
-      {
-        text: "Un sacco di cemento da 50 kg è più leggero se portato in due... oppure basta sapere come tagliarlo in due sacchi e fare due viaggi.",
-        author: "Wakeify",
-        note: "Oggi trova il tuo sacco di cemento e alleggerisciti."
-      },
-      {
-        text: "Ogni passo verso il cambiamento nei giovani nasce da una scelta minuscola ma coerente.",
-        author: "Wakeify",
-        note: "Pensa a un giovane che conosci: manda un messaggio, una parola, un feedback che lo faccia sentire visto."
-      },
-      {
-        text: "Ogni passo verso il cambiamento in benessere nasce da una scelta minuscola ma coerente.",
-        author: "Wakeify",
-        note: "Chiediti: cosa mi ricarica davvero? Fai oggi almeno un micro-gesto che vada in quella direzione."
-      },
-      {
-        text: "Ogni passo verso il cambiamento nella tua vita nasce da una scelta minuscola ma coerente.",
-        author: "Wakeify",
-        note: "Non devi cambiare tutto oggi: scegli una sola cosa su cui allineare pensiero, parola e azione."
-      }
-    ];
+   <script type="module">
+  import quotes from './quotes.js';
+
+  function getDayOfYear(date) {
+    const start = new Date(date.getFullYear(), 0, 0);
+    const diff = date - start;
+    const oneDay = 1000 * 60 * 60 * 24;
+    return Math.floor(diff / oneDay);
+  }
+
+  function showQuoteForToday() {
+    const today = new Date();
+
+    const dateLabel = today.toLocaleDateString("it-IT", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+
+    const dayOfYear = getDayOfYear(today);
+    const index = (dayOfYear - 1) % quotes.length;
+    const quote = quotes[index];
+
+    document.getElementById("date-label").textContent = dateLabel;
+    document.getElementById("quote-text").textContent = quote.text;
+    document.getElementById("quote-author").textContent = "— " + quote.author;
+    document.getElementById("quote-note").innerHTML =
+      "<span>Spunto del giorno:</span> " + quote.note;
+  }
+
+  document.addEventListener("DOMContentLoaded", showQuoteForToday);
+</script>
 
     // ===================================================
     // 2. CALCOLA IL GIORNO DELL'ANNO E SCEGLI LA CITAZIONE
@@ -266,6 +247,7 @@
   </script>
 </body>
 </html>
+
 
 
 
