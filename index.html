@@ -71,17 +71,17 @@
       margin-bottom: 10px;
     }
 
-    .quote-icon {
-      font-size: 1.8rem;
-      line-height: 1;
-      opacity: 0.4;
-      margin-bottom: 8px;
-    }
-
     .quote-text {
       font-size: 1rem;
-      line-height: 1.5;
-      margin-bottom: 10px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .quote-mark {
+      font-size: 1.3rem;
+      opacity: 0.7;
+      margin: 0 4px;
+      vertical-align: top;
     }
 
     .quote-author {
@@ -115,22 +115,6 @@
       font-weight: 600;
       color: #e5e7eb;
     }
-
-.quote-text {
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 12px;
-}
-
-.quote-mark {
-  font-size: 1.3rem;
-  opacity: 0.7;
-  margin: 0 4px;
-  vertical-align: top;
-}
-
-
-    
   </style>
 </head>
 <body>
@@ -143,112 +127,152 @@
     <p id="date-label" class="date"></p>
 
     <section class="quote-card">
-  <p id="quote-text" class="quote-text">
-    <span class="quote-mark">“</span>
-    <span id="quote-text-content"></span>
-    <span class="quote-mark">”</span>
-  </p>
-  <p id="quote-author" class="quote-author"></p>
-</section>
+      <p id="quote-text" class="quote-text">
+        <span class="quote-mark">“</span>
+        <span id="quote-text-content"></span>
+        <span class="quote-mark">”</span>
+      </p>
+      <p id="quote-author" class="quote-author"></p>
+    </section>
 
     <p id="quote-note" class="quote-note"></p>
 
     <footer>
       <span>Creato con <span aria-hidden="true">♥</span> per accompagnarti ogni giorno.</span><br>
-      <strong>by Wakeify</strong>
+      <strong>by Wakeify</strong><br>
+      <a href="https://wakeifycoaching.com" style="font-size:0.8rem; color:#93c5fd; text-decoration:underline; display:inline-block; margin-top:4px;">
+        Visita il sito Wakeify →
+      </a>
     </footer>
   </div>
 
- <script>
-  // 1. ELENCO GIORNO PER GIORNO
-  const quotesByDay = [
-    {
-      dayOfYear: 1,
-      dateLabel: "1 gennaio",
-      text: "Il tempo è ciò che diamo in cambio a ciò che scegliamo di diventare.",
-      author: "Carlos Castaneda — Wakeify",
-      note: "Dedica oggi 10 minuti a qualcosa che ti avvicina alla persona che vuoi diventare."
-    },
-    {
-      dayOfYear: 2,
-      dateLabel: "2 gennaio",
-      text: "Diventa così bravo in ciò che fai… che non possano ignorarti.",
-      author: "Steve Martin — Wakeify",
-      note: "Allena oggi una micro-abilità del tuo talento per 10 minuti, senza distrazioni."
-    },
-    {
-      dayOfYear: 3,
-      dateLabel: "3 gennaio",
-      text: "Le persone forti non sono quelle che non cadono mai, ma quelle che si rialzano ogni volta che cadono.",
-      author: "Confucio — Wakeify",
-      note: "Riprendi oggi una cosa che avevi mollato dopo una caduta, anche solo per pochi minuti."
-    },
-    // ...continua così fino a 365 (giorno per giorno)
-  ];
+  <script>
+    /**
+     * NUOVO SISTEMA: CALENDARIO PER DATA
+     * ----------------------------------
+     * La chiave è "GG-MM".
+     * Esempio: "01-01" = 1 gennaio, "25-12" = 25 dicembre.
+     * L'utente vede sempre la data reale del dispositivo,
+     * ma la citazione viene presa esattamente dalla mappa qui sotto.
+     */
 
-  // 2. FUNZIONE PER IL GIORNO DELL’ANNO
-  function getDayOfYear(date) {
-    const start = new Date(date.getFullYear(), 0, 0);
-    const diff = date - start;
-    const oneDay = 1000 * 60 * 60 * 24;
-    return Math.floor(diff / oneDay); // 1–365
-  }
+    const calendarQuotes = {
+      // GENNAIO
+      "01-01": {
+        text: "Il tempo è ciò che diamo in cambio a ciò che scegliamo di diventare.",
+        author: "Carlos Castaneda — Wakeify",
+        note: "Dedica oggi 10 minuti a qualcosa che ti avvicina alla persona che vuoi diventare."
+      },
+      "02-01": {
+        text: "Diventa così bravo in ciò che fai… che non possano ignorarti.",
+        author: "Steve Martin — Wakeify",
+        note: "Allena oggi una micro-abilità del tuo talento per 10 minuti, senza distrazioni."
+      },
+      "03-01": {
+        text: "Le persone forti non sono quelle che non cadono mai, ma quelle che si rialzano ogni volta che cadono.",
+        author: "Confucio — Wakeify",
+        note: "Riprendi oggi una cosa che avevi mollato dopo una caduta, anche solo per pochi minuti."
+      },
+      "04-01": {
+        text: "Sii paziente con te stesso. La crescita interiore è un lavoro silenzioso e profondo.",
+        author: "Sandra Carey — Wakeify",
+        note: "Concediti oggi 2 minuti di pausa consapevole: respira, ascoltati, senza giudizio."
+      },
+      "05-01": {
+        text: "Non smettere mai di fare del tuo meglio solo perché qualcuno non ti dà credito.",
+        author: "Kamari aka Lyrikal — Wakeify",
+        note: "Fai oggi una cosa importante senza dirlo a nessuno: la tua coerenza conta più del riconoscimento."
+      },
+      "06-01": {
+        text: "La vita si restringe o si espande in proporzione al coraggio di ciascuno.",
+        author: "Anaïs Nin — Wakeify",
+        note: "Scegli un’azione che rimandi per paura e falla in versione ‘mini’, oggi."
+      },
+      "07-01": {
+        text: "Non è necessario vedere l’intera scala. Inizia semplicemente a salire il primo gradino.",
+        author: "Martin Luther King Jr. — Wakeify",
+        note: "Definisci il primo micro-passaggio del tuo obiettivo e fallo entro stasera."
+      },
+      "08-01": {
+        text: "La disciplina è scegliere tra ciò che vuoi ora e ciò che vuoi di più.",
+        author: "Abraham Lincoln — Wakeify",
+        note: "Riconosci una tentazione immediata e scegline consapevolmente una che serva al tuo lungo termine."
+      },
+      "09-01": {
+        text: "Non aspettare. Il tempo non sarà mai giusto.",
+        author: "Napoleon Hill — Wakeify",
+        note: "Inizia oggi qualcosa che continui a rimandare ‘al momento giusto’, anche solo per 5 minuti."
+      },
+      "10-01": {
+        text: "Be yourself; everyone else is already taken.",
+        author: "Oscar Wilde — Wakeify",
+        note: "Nota oggi un modo in cui ti stai adattando per compiacere gli altri e fai una piccola scelta più autentica."
+      },
+      "11-01": {
+        text: "Non aspettare il momento perfetto. Coglilo e rendilo perfetto.",
+        author: "George Bernard Shaw — Wakeify",
+        note: "Prendi una situazione imperfetta di oggi e chiediti: cosa posso fare io per migliorarla del 10%?"
+      },
+      "12-01": {
+        text: "Le difficoltà rafforzano la mente, come la fatica rafforza il corpo.",
+        author: "Lucio Anneo Seneca — Wakeify",
+        note: "Individua una difficoltà attuale e scrivi una cosa che ti sta insegnando invece di solo subirla."
+      },
+      // ESEMPIO PER DICEMBRE (PUOI CAMBIARE DATA / FRASE)
+      "01-12": {
+        text: "The best type of risks to take are ones where the worst outcome is manageable and the best outcome is life-changing.",
+        author: "Indira Gandhi (attrib.) — Wakeify",
+        note: "Identifica oggi un rischio piccolo ma strategico: se va male lo gestisci, se va bene ti apre una porta nuova. Fai il primo passo."
+      }
+      // TODO: continua a riempire tutte le date da "13-01" in avanti fino a "31-12"
+    };
 
-  // 3. MOSTRARE LA CITAZIONE DI OGGI
-  function showQuoteForToday() {
-    const today = new Date();
-    const todayDayOfYear = getDayOfYear(today);
-
-    // Cerca nell’array l’oggetto con quel dayOfYear
-    let quote = quotesByDay.find(q => q.dayOfYear === todayDayOfYear);
-
-    // Se non lo trovi (es: non l’hai ancora compilato), fallback sul primo
-    if (!quote) {
-      quote = quotesByDay[0];
+    /**
+     * Restituisce la chiave "GG-MM" della data di oggi.
+     * Esempio: 1 gennaio → "01-01", 25 dicembre → "25-12".
+     */
+    function getTodayKey() {
+      const today = new Date();
+      const day = String(today.getDate()).padStart(2, "0");
+      const month = String(today.getMonth() + 1).padStart(2, "0");
+      return `${day}-${month}`;
     }
 
-    // Data “bella” in italiano
-    const fullDateLabel = today.toLocaleDateString("it-IT", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    });
+    function showQuoteForToday() {
+      const today = new Date();
+      const key = getTodayKey();
 
-    const dateEl = document.getElementById("date-label");
-    const textContentEl = document.getElementById("quote-text-content");
-    const authorEl = document.getElementById("quote-author");
-    const noteEl = document.getElementById("quote-note");
+      // Data estesa in italiano per l'utente (es: lunedì 1 dicembre 2025)
+      const fullDateLabel = today.toLocaleDateString("it-IT", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
 
-    dateEl.textContent = fullDateLabel;    // es: lunedì 1 gennaio 2025
-    textContentEl.textContent = quote.text;
-    authorEl.textContent = "— " + quote.author;
-    noteEl.innerHTML = "<span>Spunto del giorno:</span> " + quote.note;
-  }
+      const dateEl = document.getElementById("date-label");
+      const textContentEl = document.getElementById("quote-text-content");
+      const authorEl = document.getElementById("quote-author");
+      const noteEl = document.getElementById("quote-note");
 
-  document.addEventListener("DOMContentLoaded", showQuoteForToday);
-</script>
+      dateEl.textContent = fullDateLabel;
 
+      let quote = calendarQuotes[key];
+
+      // Se non c'è una citazione per questa data, usa un fallback neutro
+      if (!quote) {
+        textContentEl.textContent = "Nessuna citazione è stata ancora assegnata a questa data.";
+        authorEl.textContent = "";
+        noteEl.innerHTML = "<span>Spunto del giorno:</span> Puoi usare questo spazio per aggiungere una nuova frase nel tuo calendario Wakeify.";
+        return;
+      }
+
+      textContentEl.textContent = quote.text;
+      authorEl.textContent = "— " + quote.author;
+      noteEl.innerHTML = "<span>Spunto del giorno:</span> " + quote.note;
+    }
+
+    document.addEventListener("DOMContentLoaded", showQuoteForToday);
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
