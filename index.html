@@ -115,7 +115,57 @@
       font-weight: 600;
       color: #e5e7eb;
     }
-  </style>
+  
+    /* Archivio citazioni */
+    .archive-bar {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      margin: 12px 0 4px;
+      flex-wrap: wrap;
+    }
+
+    .archive-button {
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(129,140,248,0.6);
+      background: rgba(15,23,42,0.8);
+      color: #e5e7eb;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .archive-button:hover {
+      border-color: rgba(191,219,254,0.8);
+    }
+
+    .archive-date {
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(129,140,248,0.6);
+      background: rgba(15,23,42,0.8);
+      color: #e5e7eb;
+      font-size: 0.85rem;
+    }
+
+    .archive-hint {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #cbd5f5;
+      opacity: 0.9;
+      margin-bottom: 6px;
+    }
+
+    .archive-mode {
+      text-align: center;
+      font-size: 0.72rem;
+      color: #93c5fd;
+      opacity: 0.9;
+      margin-top: 2px;
+    }
+
+</style>
 </head>
 <body>
   <div class="app">
@@ -136,6 +186,13 @@
     </section>
 
     <p id="quote-note" class="quote-note"></p>
+
+    <div class="archive-bar">
+      <button id="btn-archive" class="archive-button" type="button">Archivio</button>
+      <input id="archive-date" class="archive-date" type="date" aria-label="Seleziona una data passata">
+    </div>
+    <p id="archive-hint" class="archive-hint">Scegli una data passata per rileggere la citazione.</p>
+    <p id="archive-mode" class="archive-mode" style="display:none;">Stai rileggendo una citazione dall’archivio.</p>
 
     <footer>
       <span>Creato con <span aria-hidden="true">♥</span> per accompagnarti ogni giorno.</span><br>
@@ -2059,11 +2116,74 @@
      * Restituisce la chiave "GG-MM" della data di oggi.
      * Esempio: 1 gennaio → "01-01", 25 dicembre → "25-12".
      */
+    
+    /**
+     * Restituisce la chiave "GG-MM" della data di oggi.
+     * Esempio: 1 gennaio → "01-01", 25 dicembre → "25-12".
+     */
     function getTodayKey() {
       const today = new Date();
       const day = String(today.getDate()).padStart(2, "0");
       const month = String(today.getMonth() + 1).padStart(2, "0");
       return `${day}-${month}`;
+    }
+
+    /**
+     * Converte una Date in "GG-MM" (chiave calendario).
+     */
+    function keyFromDateObj(d) {
+      const day = String(d.getDate()).padStart(2, "0");
+      const month = String(d.getMonth() + 1).padStart(2, "0");
+      return `${day}-${month}`;
+    }
+
+    /**
+     * Converte una Date in "YYYY-MM-DD" (per input[type=date]).
+     */
+    function toISODate(d) {
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      return `${yyyy}-${mm}-${dd}`;
+    }
+
+    /**
+     * True se selected è nel futuro rispetto a today (confronto solo data, non orario).
+     */
+    function isFutureDate(selected, today) {
+      const a = new Date(selected.getFullYear(), selected.getMonth(), selected.getDate()).getTime();
+      const b = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
+      return a > b;
+    }
+
+    /**
+     * Renderizza una citazione dato un key "GG-MM".
+     * Se manca, mostra fallback neutro.
+     */
+    function showQuoteByKey(key, fullDateLabelOverride = null, mode = "today") {
+      const dateEl = document.getElementById("date-label");
+      const textContentEl = document.getElementById("quote-text-content");
+      const authorEl = document.getElementById("quote-author");
+      const noteEl = document.getElementById("quote-note");
+      const archiveModeEl = document.getElementById("archive-mode");
+
+      if (fullDateLabelOverride) dateEl.textContent = fullDateLabelOverride;
+
+      const quote = calendarQuotes[key];
+
+      if (!quote) {
+        textContentEl.textContent = "Nessuna citazione è stata ancora assegnata a questa data.";
+        authorEl.textContent = "";
+        noteEl.innerHTML = "<span>Spunto del giorno:</span> Puoi usare questo spazio per aggiungere una nuova frase nel tuo calendario Wakeify.";
+        if (archiveModeEl) archiveModeEl.style.display = (mode === "archive") ? "block" : "none";
+        return;
+      }
+
+      textContentEl.textContent = quote.text;
+      authorEl.textContent = "— " + quote.author;
+      noteEl.innerHTML = "<span>Spunto del giorno:</span> " + quote.note;
+
+      if (archiveModeEl) archiveModeEl.style.display = (mode === "archive") ? "block" : "none";
     }
 
     function showQuoteForToday() {
@@ -2078,38 +2198,64 @@
         day: "numeric"
       });
 
-      const dateEl = document.getElementById("date-label");
-      const textContentEl = document.getElementById("quote-text-content");
-      const authorEl = document.getElementById("quote-author");
-      const noteEl = document.getElementById("quote-note");
-
-      dateEl.textContent = fullDateLabel;
-
-      let quote = calendarQuotes[key];
-
-      // Se non c'è una citazione per questa data, usa un fallback neutro
-      if (!quote) {
-        textContentEl.textContent = "Nessuna citazione è stata ancora assegnata a questa data.";
-        authorEl.textContent = "";
-        noteEl.innerHTML = "<span>Spunto del giorno:</span> Puoi usare questo spazio per aggiungere una nuova frase nel tuo calendario Wakeify.";
-        return;
-      }
-
-      textContentEl.textContent = quote.text;
-      authorEl.textContent = "— " + quote.author;
-      noteEl.innerHTML = "<span>Spunto del giorno:</span> " + quote.note;
+      showQuoteByKey(key, fullDateLabel, "today");
     }
 
-    document.addEventListener("DOMContentLoaded", showQuoteForToday);
-  </script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Citazione di oggi (comportamento attuale)
+      showQuoteForToday();
+
+      // Archivio (Opzione 1)
+      const btnArchive = document.getElementById("btn-archive");
+      const inputDate = document.getElementById("archive-date");
+      const hint = document.getElementById("archive-hint");
+
+      if (!btnArchive || !inputDate || !hint) return;
+
+      const today = new Date();
+      const startDate = new Date("2026-01-01T00:00:00");
+
+      // Limiti calendario: non oltre oggi; non prima dell'inizio percorso (se oggi è prima, evita min > max)
+      inputDate.max = toISODate(today);
+      const minDate = (today < startDate) ? today : startDate;
+      inputDate.min = toISODate(minDate);
+
+      btnArchive.addEventListener("click", () => {
+        // Se non scelto nulla, propone ieri (se possibile), altrimenti oggi
+        if (!inputDate.value) {
+          const d = new Date(today);
+          d.setDate(d.getDate() - 1);
+          inputDate.value = (d < minDate) ? toISODate(minDate) : toISODate(d);
+        }
+        inputDate.focus();
+      });
+
+      inputDate.addEventListener("change", () => {
+        if (!inputDate.value) return;
+
+        const selected = new Date(inputDate.value + "T00:00:00");
+
+        if (isFutureDate(selected, today)) {
+          hint.textContent = "Puoi consultare solo le citazioni fino a oggi.";
+          return;
+        }
+        if (selected < minDate) {
+          hint.textContent = "L’archivio parte dall’inizio del percorso.";
+          return;
+        }
+
+        const key = keyFromDateObj(selected);
+        const label = selected.toLocaleDateString("it-IT", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        });
+
+        showQuoteByKey(key, label, "archive");
+        hint.textContent = "Scegli un’altra data per rileggere altre citazioni.";
+      });
+    });
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
